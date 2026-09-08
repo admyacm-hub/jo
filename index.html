@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diversos da Derguiana | Loja Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ================= VARIÁVEIS DE TEMA ================= */
+        :root {
+            --bg: #f8f4ec;
+            --surface: #ffffff;
+            --text: #2c2c2c;
+            --text-muted: #777;
+            
+            --verde-escuro: #0e3b2c;
+            --verde-claro: #1a5c45;
+            --dourado: #d4af37;
+            --dourado-escuro: #b8972e;
+            
+            --border: #e0dcd2;
+            --whatsapp: #25d366;
+            --danger: #e74c3c;
+        }
+
+        body.dark-mode {
+            --bg: #121212;
+            --surface: #1e1e1e;
+            --text: #f0f0f0;
+            --text-muted: #aaa;
+            --border: #333;
+            --verde-escuro: #1a5c45;
+        }
+
+        /* ================= RESET & GLOBAL ================= */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; color: var(--verde-escuro); }
+        a { text-decoration: none; color: inherit; }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .btn { padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; font-weight: 700; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; font-size: 14px; }
+        .btn-dourado { background-color: var(--dourado); color: var(--verde-escuro); }
+        .btn-dourado:hover { background-color: var(--dourado-escuro); }
+        .btn-verde { background-color: var(--verde-escuro); color: white; }
+        .btn-verde:hover { background-color: var(--verde-claro); }
+        .btn-outline { background: transparent; border: 2px solid var(--verde-escuro); color: var(--verde-escuro); }
+        .btn-outline:hover { background: var(--verde-escuro); color: white; }
+
+        /* ================= TOP BAR & HEADER ================= */
+        .topbar { background: var(--verde-escuro); color: white; font-size: 13px; padding: 8px 0; text-align: center; }
+        .header { background: var(--surface); border-bottom: 3px solid var(--dourado); padding: 15px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .header-content { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--verde-escuro); display: flex; align-items: center; gap: 10px; }
+        .logo i { color: var(--dourado); }
+        
+        .search-bar { flex: 1; max-width: 500px; position: relative; }
+        .search-bar input { width: 100%; padding: 12px 45px 12px 15px; border: 1px solid var(--border); border-radius: 30px; background: var(--bg); color: var(--text); outline: none; font-size: 14px; }
+        .search-bar i { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); cursor: pointer; }
+        
+        .header-icons { display: flex; align-items: center; gap: 20px; font-size: 20px; }
+        .cart-icon { position: relative; cursor: pointer; color: var(--verde-escuro); }
+        .cart-count { position: absolute; top: -8px; right: -8px; background: var(--dourado); color: white; border-radius: 50%; width: 18px; height: 18px; font-size: 11px; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        .theme-toggle, .lang-toggle, .mobile-menu { cursor: pointer; }
+        .mobile-menu { display: none; }
+        
+        nav ul { list-style: none; display: flex; gap: 25px; margin-top: 20px; border-top: 1px solid var(--border); padding-top: 15px; font-weight: 700; }
+        nav ul li a:hover { color: var(--dourado); }
+
+        /* ================= HERO ================= */
+        .hero { background: linear-gradient(135deg, var(--verde-escuro) 0%, #0a2a1e 100%); color: white; text-align: center; padding: 80px 20px; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: -50px; right: -50px; width: 300px; height: 300px; border-radius: 50%; background: var(--dourado); opacity: 0.1; }
+        .hero::after { content: ''; position: absolute; bottom: -80px; left: -80px; width: 250px; height: 250px; border-radius: 50%; background: white; opacity: 0.05; }
+        .hero h1 { color: white; font-size: 3.5rem; margin-bottom: 20px; }
+        .hero p { font-size: 1.2rem; color: var(--dourado); margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .hero-cta { display: flex; justify-content: center; gap: 15px; }
+
+        /* ================= FILTROS & PRODUTOS ================= */
+        .catalog-section { padding: 50px 0; }
+        .catalog-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 20px; }
+        .filters { display: flex; gap: 15px; flex-wrap: wrap; }
+        .filter-select { padding: 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text); cursor: pointer; font-size: 14px; }
+
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 25px; }
+        .product-card { background: var(--surface); border-radius: 12px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.08); transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.12); border: 1px solid var(--dourado); }
+        .product-img { height: 180px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .product-img img { width: 100%; height: 100%; object-fit: cover; }
+        .product-info { padding: 15px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .product-title { font-size: 16px; font-weight: 900; margin-bottom: 5px; }
+        .product-brand { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+        .product-price { font-size: 20px; font-weight: 900; color: var(--verde-escuro); margin-bottom: 15px; }
+        .btn-add-cart { background: var(--verde-escuro); color: white; border: none; padding: 10px; border-radius: 8px; width: 100%; cursor: pointer; transition: 0.3s; font-weight: 700; }
+        .btn-add-cart:hover { background: var(--dourado); color: var(--verde-escuro); }
+
+        /* ================= CARRINHO DRAWER ================= */
+        .cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 1500; }
+        .cart-overlay.active { opacity: 1; pointer-events: all; }
+        .cart-drawer { position: fixed; top: 0; right: -400px; width: 100%; max-width: 400px; height: 100%; background: var(--surface); box-shadow: -5px 0 25px rgba(0,0,0,0.2); transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1); z-index: 2000; display: flex; flex-direction: column; }
+        .cart-drawer.active { right: 0; }
+        .cart-header { padding: 20px; background: var(--verde-escuro); color: white; display: flex; justify-content: space-between; align-items: center; }
+        .cart-body { flex: 1; overflow-y: auto; padding: 20px; }
+        .cart-item { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+        .cart-item-img { width: 70px; height: 70px; border-radius: 8px; object-fit: cover; }
+        .cart-item-details { flex: 1; }
+        .cart-item-title { font-size: 14px; font-weight: 700; margin-bottom: 5px; }
+        .cart-item-price { font-size: 14px; color: var(--dourado); font-weight: 900; }
+        .cart-item-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+        .qty-control { display: flex; align-items: center; border: 1px solid var(--border); border-radius: 5px; }
+        .qty-btn { background: transparent; border: none; width: 25px; height: 25px; cursor: pointer; color: var(--text); }
+        .remove-item { color: var(--danger); cursor: pointer; font-size: 16px; }
+
+        .cart-footer { padding: 20px; border-top: 1px solid var(--border); background: var(--bg); }
+        .cart-summary { margin-bottom: 15px; }
+        .summary-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; }
+        .summary-row.total { font-weight: 900; font-size: 18px; color: var(--verde-escuro); border-top: 2px solid var(--dourado); padding-top: 10px; }
+
+        /* ================= CHECKOUT MODAL ================= */
+        .checkout-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; align-items: center; justify-content: center; z-index: 3000; padding: 20px; }
+        .checkout-modal { background: var(--surface); border-radius: 15px; max-width: 500px; width: 100%; padding: 30px; max-height: 90vh; overflow-y: auto; animation: slideUp 0.3s ease; }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 14px; font-weight: 700; margin-bottom: 5px; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 14px; outline: none; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+
+        /* ================= WHATSAPP FLOAT & FOOTER ================= */
+        .whatsapp-float { position: fixed; bottom: 25px; right: 25px; background: var(--whatsapp); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 1000; transition: transform 0.3s; }
+        .whatsapp-float:hover { transform: scale(1.1); }
+        footer { background: var(--verde-escuro); color: white; text-align: center; padding: 30px; margin-top: 50px; }
+
+        /* ================= RESPONSIVO ================= */
+        @media (max-width: 768px) {
+            .search-bar { display: none; }
+            .mobile-menu { display: block; }
+            nav ul { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: var(--surface); flex-direction: column; padding: 20px; border-bottom: 2px solid var(--dourado); z-index: 999; }
+            nav ul.active { display: flex; }
+            .hero h1 { font-size: 2.2rem; }
+            .form-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Topo -->
+    <div class="topbar">Entrega Rápida e Segura em toda Angola | Linha de Apoio: +244 932 730 411</div>
+    
+    <header class="header">
+        <div class="container header-content">
+            <div class="logo"><i class="fa-solid fa-basket-shopping"></i> Derguiana</div>
+            
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Pesquisar produtos... (ex: Carne, Creatina, Papas)">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+
+            <div class="header-icons">
+                <div class="lang-toggle" title="PT/EN"><i class="fa-solid fa-globe"></i> PT</div>
+                <div class="theme-toggle" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i></div>
+                <div class="cart-icon" onclick="openCart()">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+                <div class="mobile-menu" onclick="toggleMobileMenu()"><i class="fa-solid fa-bars"></i></div>
+            </div>
+        </div>
+        <div class="container">
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="#">Início</a></li>
+                    <li><a href="#" onclick="filterCategory('Suplementos')">Suplementos</a></li>
+                    <li><a href="#" onclick="filterCategory('Carnes')">Carnes</a></li>
+                    <li><a href="#" onclick="filterCategory('Lacticínios')">Lacticínios</a></li>
+                    <li><a href="#">Promoções</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <h1>Qualidade Premium<br>Direto de África para sua Casa</h1>
+            <p>Suplementos, carnes selecionadas e muito mais com preços imbatíveis.</p>
+            <div class="hero-cta">
+                <a href="#" class="btn btn-dourado">Ver Promoções</a>
+                <a href="#" class="btn btn-outline" style="border-color: white; color: white;">Explorar Catálogo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catálogo -->
+    <section class="catalog-section container">
+        <div class="catalog-header">
+            <h2>Nossos Produtos</h2>
+            <div class="filters">
+                <select class="filter-select" id="categoryFilter" onchange="filterCategory(this.value)">
+                    <option value="all">Todas as Categorias</option>
+                    <option value="Suplementos">Suplementos</option>
+                    <option value="Carnes">Carnes</option>
+                    <option value="Lacticínios">Lacticínios</option>
+                    <option value="Papas">Papas</option>
+                </select>
+                <select class="filter-select" id="sortFilter" onchange="sortProducts(this.value)">
+                    <option value="default">Ordenar por: Relevância</option>
+                    <option value="low">Menor Preço</option>
+                    <option value="high">Maior Preço</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="product-grid" id="productGrid">
+            <!-- Produtos carregados via JS -->
+        </div>
+    </section>
+
+    <!-- Carrinho Drawer -->
+    <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="cart-header">
+            <h3>Seu Carrinho</h3>
+            <i class="fa-solid fa-xmark" style="cursor:pointer; font-size:22px;" onclick="closeCart()"></i>
+        </div>
+        <div class="cart-body" id="cartBody">
+            <!-- Itens via JS -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-summary">
+                <div class="summary-row"><span>Subtotal</span><span id="subtotal">Kz 0</span></div>
+                <div class="summary-row"><span>Frete (Luanda)</span><span id="frete">Kz 1.000</span></div>
+                <div class="summary-row total"><span>Total</span><span id="total">Kz 0</span></div>
+                <input type="text" id="cupomInput" placeholder="Cupom de desconto (ex: DERGUIANA10)" style="width:100%; padding:8px; margin-top:10px; border:1px solid var(--border); border-radius:5px;">
+                <button onclick="aplicarCupom()" style="margin-top:5px; width:100%; padding:8px; background:var(--dourado); color:white; border:none; cursor:pointer; font-weight:bold;">Aplicar Cupom</button>
+            </div>
+            <button class="btn btn-verde" style="width:100%;" onclick="openCheckout()">Finalizar Compra</button>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="checkout-overlay" id="checkoutModal">
+        <div class="checkout-modal">
+            <h2 style="margin-bottom:20px; display:flex; justify-content:space-between;">Finalizar Pedido <i class="fa-solid fa-xmark" style="cursor:pointer; font-size:24px;" onclick="closeCheckout()"></i></h2>
+            <form id="checkoutForm">
+                <div class="form-group">
+                    <label>Nome Completo</label>
+                    <input type="text" id="nomeCliente" required placeholder="Ex: João Manuel">
+                </div>
+                <div class="form-group">
+                    <label>Telefone / WhatsApp</label>
+                    <input type="tel" id="telCliente" required placeholder="+244 9XX XXX XXX">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Província</label>
+                        <select id="provincia">
+                            <option>Luanda</option>
+                            <option>Benguela</option>
+                            <option>Huambo</option>
+                            <option>Outra</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Bairro</label>
+                        <input type="text" id="bairro" required placeholder="Ex: Maianga">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Ponto de Referência (Opcional)</label>
+                    <input type="text" placeholder="Ex: Próximo à igreja">
+                </div>
+                <div class="form-group">
+                    <label>Forma de Pagamento</label>
+                    <select id="pagamento">
+                        <option>Dinheiro na Entrega (TPA/Multicaixa)</option>
+                        <option>Transferência Bancária</option>
+                        <option>Express (Se disponível)</option>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-whatsapp" style="width:100%; background:var(--whatsapp); color:white; padding:15px; border-radius:8px; font-size:16px; font-weight:bold; border:none; cursor:pointer;" onclick="sendToWhatsApp()">
+                    <i class="fa-brands fa-whatsapp" style="margin-right:10px;"></i> Enviar Pedido Detalhado no WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <a href="https://wa.me/244932730411" target="_blank" class="whatsapp-float">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <footer>
+        <p>&copy; 2026 Diversos da Derguiana. Todos os direitos reservados.</p>
+        <p style="font-size: 12px; margin-top: 10px; color: #888;">Site protegido por SSL | Otimizado para SEO</p>
+    </footer>
+
+    <!-- Script de Lógica de Dados e Interações -->
+    <script>
+        // Dados simulados (Banco de Dados Mock)
+        const products = [
+            { id: 1, name: "Carne Seca Namibiana Premium", brand: "Derguiana", price: 5500, category: "Carnes", img: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=500&q=80" },
+            { id: 2, name: "Creatina Monohidratada 300g", brand: "USN", price: 9800, category: "Suplementos", img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=500&q=80" },
+            { id: 3, name: "Manteiga de Nhamplo Tradicional", brand: "Natural", price: 3200, category: "Lacticínios", img: "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?auto=format&fit=crop&w=500&q=80" },
+            { id: 4, name: "Papas Instantâneas Baunilha 1Kg", brand: "Instant", price: 2500, category: "Papas", img: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=500&q=80" },
+            { id: 5, name: "Whey Protein Isolado 900g", brand: "USN", price: 15000, category: "Suplementos", img: "https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=500&q=80" },
+            { id: 6, name: "Leite Integral Oshikandela 1L", brand: "Oshikandela", price: 1800, category: "Lacticínios", img: "https://images.unsplash.com/photo-1563636619-e9143da7973b?auto=format&fit=crop&w=500&q=80" }
+        ];
+
+        let cart = [];
+        let currentCategory = 'all';
+        let currentSort = 'default';
+        let couponApplied = false;
+
+        // Renderizar Produtos
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+            
+            let filtered = products.filter(p => currentCategory === 'all' || p.category === currentCategory);
+            
+            if (currentSort === 'low') filtered.sort((a,b) => a.price - b.price);
+            if (currentSort === 'high') filtered.sort((a,b) => b.price - a.price);
+
+            filtered.forEach(product => {
+                grid.innerHTML += `
+                    <div class="product-card">
+                        <div class="product-img">
+                            <img src="${product.img}" alt="${product.name}">
+                        </div>
+                        <div class="product-info">
+                            <div>
+                                <div class="product-title">${product.name}</div>
+                                <div class="product-brand">${product.brand} | ${product.category}</div>
+                                <div class="product-price">Kz ${product.price.toLocaleString('pt-PT')}</div>
+                            </div>
+                            <button class="btn-add-cart" onclick="addToCart(${product.id})">
+                                <i class="fa-solid fa-cart-plus"></i> Adicionar
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Lógica do Carrinho
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            cart.push(product);
+            updateCartUI();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateQuantity(index, change) {
+            if (change === -1 && cart[index].qty === 1) return;
+            if (!cart[index].qty) cart[index].qty = 1;
+            cart[index].qty += change;
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const cartBody = document.getElementById('cartBody');
+            const cartCount = document.getElementById('cartCount');
+            const subtotalEl = document.getElementById('subtotal');
+            const totalEl = document.getElementById('total');
+
+            cartCount.innerText = cart.length;
+
+            if (cart.length === 0) {
+                cartBody.innerHTML = '<div style="text-align:center; margin-top:50px; color:var(--text-muted);"><i class="fa-solid fa-cart-arrow-down" style="font-size:50px; margin-bottom:20px;"></i><br>Seu carrinho está vazio.</div>';
+                subtotalEl.innerText = 'Kz 0';
+                totalEl.innerText = 'Kz 0';
+                return;
+            }
+
+            let subtotal = 0;
+            cartBody.innerHTML = '';
+            cart.forEach((item, index) => {
+                const qty = item.qty || 1;
+                subtotal += item.price * qty;
+                cartBody.innerHTML += `
+                    <div class="cart-item">
+                        <img src="${item.img}" class="cart-item-img" alt="item">
+                        <div class="cart-item-details">
+                            <div class="cart-item-title">${item.name}</div>
+                            <div class="cart-item-price">Kz ${item.price.toLocaleString('pt-PT')}</div>
+                        </div>
+                        <div class="cart-item-actions">
+                            <div class="qty-control">
+                                <button class="qty-btn" onclick="updateQuantity(${index}, -1)">-</button>
+                                <span style="padding:0 10px;">${qty}</span>
+                                <button class="qty-btn" onclick="updateQuantity(${index}, 1)">+</button>
+                            </div>
+                            <i class="fa-solid fa-trash remove-item" onclick="removeFromCart(${index})"></i>
+                        </div>
+                    </div>
+                `;
+            });
+
+            const frete = 1000; // Taxa fixa simulada
+            subtotalEl.innerText = `Kz ${subtotal.toLocaleString('pt-PT')}`;
+            document.getElementById('frete').innerText = `Kz ${frete.toLocaleString('pt-PT')}`;
+            
+            let total = subtotal + frete;
+            if (couponApplied) total = total * 0.9; // Desconto de 10%
+
+            totalEl.innerText = `Kz ${total.toLocaleString('pt-PT')}`;
+        }
+
+        function aplicarCupom() {
+            const input = document.getElementById('cupomInput').value;
+            if (input === 'DERGUIANA10') {
+                couponApplied = true;
+                alert("Cupom DERGUIANA10 aplicado! 10% de desconto no total.");
+                updateCartUI();
+            } else {
+                couponApplied = false;
+                alert("Cupom inválido.");
+                updateCartUI();
+            }
+        }
+
+        // Abrir/Fechar Carrinho
+        function openCart() { document.getElementById('cartOverlay').classList.add('active'); document.getElementById('cartDrawer').classList.add('active'); }
+        function closeCart() { document.getElementById('cartOverlay').classList.remove('active'); document.getElementById('cartDrawer').classList.remove('active'); }
+
+        // Checkout
+        function openCheckout() {
+            if (cart.length === 0) return alert("Adicione itens ao carrinho.");
+            closeCart();
+            document.getElementById('checkoutModal').style.display = 'flex';
+        }
+        function closeCheckout() { document.getElementById('checkoutModal').style.display = 'none'; }
+
+        // Envio para WhatsApp
+        function sendToWhatsApp() {
+            const nome = document.getElementById('nomeCliente').value;
+            const tel = document.getElementById('telCliente').value;
+            const bairro = document.getElementById('bairro').value;
+            const pagamento = document.getElementById('pagamento').value;
+            
+            if (!nome || !tel || !bairro) return alert("Preencha os campos obrigatórios.");
+
+            let msg = `*NOVO PEDIDO - DERGUIANA*\n\n`;
+            msg += `*Cliente:* ${nome}\n`;
+            msg += `*Telefone:* ${tel}\n`;
+            msg += `*Local:* ${bairro}\n`;
+            msg += `*Pagamento:* ${pagamento}\n\n`;
+            msg += `*Itens do Pedido:*\n`;
+
+            let subtotal = 0;
+            cart.forEach((item, i) => {
+                const qty = item.qty || 1;
+                subtotal += item.price * qty;
+                msg += `${i+1}. ${item.name} | Qtd: ${qty} | Preço: Kz ${item.price}\n`;
+            });
+
+            const frete = 1000;
+            let total = subtotal + frete;
+            if (couponApplied) total = total * 0.9;
+
+            msg += `\n*Subtotal:* Kz ${subtotal.toLocaleString('pt-PT')}\n`;
+            msg += `*Frete:* Kz ${frete.toLocaleString('pt-PT')}\n`;
+            msg += `*TOTAL: Kz ${total.toLocaleString('pt-PT')}*\n\n`;
+            msg += `_Obrigado pela preferência!_`;
+
+            // Codifica a mensagem para URL
+            const encodedMsg = encodeURIComponent(msg);
+            window.open(`https://wa.me/244932730411?text=${encodedMsg}`, '_blank');
+        }
+
+        // Filtros, Busca e Ordenação
+        function filterCategory(cat) {
+            currentCategory = cat;
+            document.getElementById('categoryFilter').value = cat;
+            renderProducts();
+        }
+
+        function sortProducts(sort) {
+            currentSort = sort;
+            renderProducts();
+        }
+
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const search = e.target.value.toLowerCase();
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+            
+            products.filter(p => p.name.toLowerCase().includes(search) || p.category.toLowerCase().includes(search)).forEach(product => {
+                grid.innerHTML += `
+                    <div class="product-card">
+                        <div class="product-img"><img src="${product.img}" alt="${product.name}"></div>
+                        <div class="product-info">
+                            <div>
+                                <div class="product-title">${product.name}</div>
+                                <div class="product-brand">${product.brand}</div>
+                                <div class="product-price">Kz ${product.price.toLocaleString('pt-PT')}</div>
+                            </div>
+                            <button class="btn-add-cart" onclick="addToCart(${product.id})"><i class="fa-solid fa-cart-plus"></i> Adicionar</button>
+                        </div>
+                    </div>
+                `;
+            });
+        });
+
+        // UI/UX
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const icon = document.querySelector('.theme-toggle i');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.className = 'fa-solid fa-sun';
+            } else {
+                icon.className = 'fa-solid fa-moon';
+            }
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
+        }
+
+        // Inicialização
+        renderProducts();
+    </script>
+</body>
+</html>
