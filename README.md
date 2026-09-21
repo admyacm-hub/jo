@@ -45,7 +45,7 @@ A plataforma simula uma experiência de e-commerce completa:
 
 ### 📲 Integração & Checkout
 - **Checkout Seguro:** Formulário modal para coleta de dados do cliente (Nome, Telefone, Localização, Pagamento).
-- **Pedido via WhatsApp:** Gera automaticamente uma mensagem formatada e detalhada, abrindo diretamente o WhatsApp para o número **+244 932 730 411**.
+- **Pedido via WhatsApp:** Gera automaticamente uma mensagem formatada e detalhada, abrindo diretamente o WhatsApp para o número **+244 930 114 211**.
 - **Botão Flutuante:** Atalho permanente para suporte via WhatsApp.
 - **Rastreamento Simulado:** Geração de código de pedido com tela de sucesso (simulando sistema de entregas).
 
